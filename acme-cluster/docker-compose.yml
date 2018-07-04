@@ -22,8 +22,8 @@ services:
     image: acme-handlebars-bare:latest
     command: ["bare", "--hagroup hbs-group", "--quorum 2"]
   service-adapter:
-    build: ./serviceAdapter
-    image: acme-service-adapter:latest
+    build: ./dataSourceHttp
+    image: acme-datasource-http:latest
   action-adapter:
     build: ./actionAdapter
     image: acme-action-adapter:latest
