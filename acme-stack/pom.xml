@@ -65,6 +65,12 @@
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>io.knotx.acme</groupId>
+      <artifactId>acme-sample-repo</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -136,7 +142,11 @@
                   <alias>${docker.domain}/acme</alias>
                   <name>${docker.domain}/acme</name>
                   <build>
-                    <from>knotx/knotx</from>
+                    <from>knotx/knotx:latest</from>
+                    <tags>
+                      <tag>latest</tag>
+                      <tag>${project.version}</tag>
+                    </tags>
                     <assembly>
                       <targetDir>/usr/local/knotx</targetDir>
                       <mode>dir</mode>
@@ -144,7 +154,7 @@
                         <fileSets>
                           <fileSet>
                             <directory>
-                              ${project.basedir}/target/knotx-example-project-stack-${project.version}/acme-stack
+                              ${project.basedir}/target/${finalName}/acme-stack
                             </directory>
                             <outputDirectory>./</outputDirectory>
                           </fileSet>

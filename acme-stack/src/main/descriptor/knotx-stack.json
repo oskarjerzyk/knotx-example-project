@@ -30,6 +30,13 @@
     },
     {
       "groupId": "io.knotx.acme",
+      "artifactId": "acme-sample-repo",
+      "version": "${acme.version}",
+      "included": true,
+      "transitive": false
+    },
+    {
+      "groupId": "io.knotx.acme",
       "artifactId": "acme-handlebars-ext",
       "version": "${acme.version}",
       "included": true

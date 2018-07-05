@@ -1,0 +1,13 @@
+plugins {
+  id 'java'
+}
+
+description = 'Acme Project - Sample mocked HTTP Repository'
+
+defaultTasks 'build'
+
+dependencies {
+  implementation 'io.knotx:knotx-core'
+  implementation 'io.vertx:vertx-core'
+  implementation 'io.vertx:vertx-web'
+}

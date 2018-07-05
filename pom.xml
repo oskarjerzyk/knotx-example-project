@@ -99,6 +99,7 @@
     <module>acme-gateway</module>
     <module>acme-stack</module>
     <module>acme-sample-service</module>
+    <module>acme-sample-repo</module>
   </modules>
 
   <dependencyManagement>
