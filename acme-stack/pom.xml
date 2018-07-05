@@ -30,6 +30,10 @@
   <artifactId>acme-stack</artifactId>
   <name>Acme Project - Stack</name>
 
+  <properties>
+    <docker.domain>knotx</docker.domain>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>io.knotx</groupId>
@@ -105,4 +109,70 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>docker</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.26.0</version>
+            <executions>
+              <execution>
+                <id>build-acme-stack-image</id>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+
+            <configuration>
+              <images>
+                <!-- Regular knotx stack -->
+                <image>
+                  <alias>${docker.domain}/acme</alias>
+                  <name>${docker.domain}/acme</name>
+                  <build>
+                    <from>knotx/knotx</from>
+                    <assembly>
+                      <targetDir>/usr/local/knotx</targetDir>
+                      <mode>dir</mode>
+                      <inline>
+                        <fileSets>
+                          <fileSet>
+                            <directory>
+                              ${project.basedir}/target/knotx-example-project-stack-${project.version}/acme-stack
+                            </directory>
+                            <outputDirectory>./</outputDirectory>
+                          </fileSet>
+                        </fileSets>
+                      </inline>
+                    </assembly>
+                    <ports>
+                      <port>8092</port>
+                    </ports>
+                    <entryPoint>
+                      <exec>
+                        <arg>knotx</arg>
+                      </exec>
+                    </entryPoint>
+                    <cmd>
+                      <exec>
+                        <arg>run-knotx</arg>
+                      </exec>
+                    </cmd>
+                  </build>
+                </image>
+              </images>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+
 </project>

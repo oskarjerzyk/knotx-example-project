@@ -1,8 +1,4 @@
-FROM knotx/knotx
-
-## Add new dependencies to the Knot.x stack, a dependencies to your custom code
-COPY knotx-stack.json ${KNOTX_HOME}/knotx-stack.json
-RUN knotx resolve && rm -rf ${HOME}/.m2
+FROM knotx/acme
 
 ## Copy ACME specific configs
 ADD conf ${KNOTX_HOME}/conf
