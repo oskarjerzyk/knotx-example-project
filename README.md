@@ -29,10 +29,9 @@ Java options. Note that all dependencies like `acme-action-adapter-http`, `acme-
 Clone the repository and build the example project:
 
 #### Maven build
-
 Let's run the command below:
 ```
-$> mvn package
+$> mvn install
 ```
 The distribution ZIP file location is `acme-stack/target/knotx-example-project-stack-X.X.X.zip`.
 
@@ -62,13 +61,13 @@ $> bin\knotx.bat run-knotx
 ```
 
 #### Run docker
-Build image from dockerfile being in the `knotx-example-project` folder
+Build image directly from the maven by running the command
 ```
-$> docker build -t acme/knotx-example .
+$> mvn install -Pdocker.
 ```
-Run Knot.x container in background
+Run Acme Knot.x container in background
 ```
-$> docker run -d -p8092:8092 acme/knotx-example knotx-example
+$> docker run -d -p8092:8092 knotx/acme:latest knotx-example
 ```
 
 Follow logs
@@ -77,7 +76,7 @@ $> docker logs -f knotx-example
 ```
 
 #### Run Knot.x cluster
-Clone this repository and go to `acme-cluster` folder and run the Knot.x cluster
+Go to `acme-cluster` folder and run the Knot.x cluster
 ```
 $> docker-compose up
 ```
