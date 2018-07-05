@@ -76,7 +76,7 @@ $> docker logs -f knotx-example
 ```
 
 #### Run Knot.x cluster
-Go to `acme-cluster` folder and run the Knot.x cluster
+Assuming you created `knotx/acme` docker image (by executing commands above), then you can go to `acme-cluster` folder and run the Knot.x cluster
 ```
 $> docker-compose up
 ```
