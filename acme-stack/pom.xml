@@ -154,9 +154,24 @@
                         <fileSets>
                           <fileSet>
                             <directory>
-                              ${project.basedir}/target/${finalName}/acme-stack
+                              ${project.basedir}/target/${finalName}/acme-stack/conf
                             </directory>
-                            <outputDirectory>./</outputDirectory>
+                            <outputDirectory>./conf</outputDirectory>
+                          </fileSet>
+                          <fileSet>
+                            <directory>
+                              ${project.basedir}/target/${finalName}/acme-stack/sample
+                            </directory>
+                            <outputDirectory>./sample</outputDirectory>
+                          </fileSet>
+                          <fileSet>
+                            <directory>
+                              ${project.basedir}/target/${finalName}/acme-stack/lib
+                            </directory>
+                            <outputDirectory>./lib</outputDirectory>
+                            <excludes>
+                              <exclude>knotx-*.jar</exclude>
+                            </excludes>
                           </fileSet>
                         </fileSets>
                       </inline>
