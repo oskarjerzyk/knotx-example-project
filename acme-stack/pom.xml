@@ -168,9 +168,6 @@
                               ${project.basedir}/target/${finalName}/acme-stack/lib
                             </directory>
                             <outputDirectory>./lib</outputDirectory>
-                            <excludes>
-                              <exclude>knotx-*.jar</exclude>
-                            </excludes>
                           </fileSet>
                         </fileSets>
                       </inline>
