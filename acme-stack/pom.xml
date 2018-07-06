@@ -142,7 +142,7 @@
                   <alias>${docker.domain}/acme</alias>
                   <name>${docker.domain}/acme</name>
                   <build>
-                    <from>knotx/knotx:latest</from>
+                    <from>knotx/knotx:${project.version}</from>
                     <tags>
                       <tag>latest</tag>
                       <tag>${project.version}</tag>
