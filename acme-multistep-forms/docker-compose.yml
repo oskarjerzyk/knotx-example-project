@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  core:
+    build: ./core
+    image: acme-core:latest
+    depends_on:
+      - redis
+    ports:
+      - "8092:8092"
+  redis:
+    image: redis:5
