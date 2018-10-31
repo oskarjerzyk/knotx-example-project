@@ -22,11 +22,44 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="http://cognifide.com/favicon.ico?v=2"/>
-  <title>Knot.x - HELLO</title>
+  <title>Knot.x - Login Step 3</title>
   <link href="https://bootswatch.com/4/simplex/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-<h1>HELLO</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+        <h1>
+          Sample multi-step form wizard
+        </h1>
+        <h2>
+          Login Form - STEP 3
+        </h2>
+        <p>
+          <a class="btn btn-primary btn-large"
+             href="https://github.com/Cognifide/knotx">Learn more</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <script data-knotx-knots="form-1,handlebars"
+              type="text/knotx-snippet">
+        {{#if action._result.validationErrors}}
+        <p class="bg-danger">Invalid credentials</p>
+        {{/if}}
+        <p>Please provide your password</p>
+        <form data-knotx-forms-adapter-name="step2" data-knotx-forms-on-success="/content/simple.html"
+              data-knotx-forms-on-error="_self" method="post">
+          <input type="password" name="password"/>
+          <input type="submit" value="Submit"/>
+        </form>
+      </script>
+    </div>
+  </div>
+</div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
