@@ -7,6 +7,7 @@ services:
     depends_on:
       - redis
     ports:
+      - "3000:3000"
       - "8092:8092"
       - "18092:18092"
     volumes:
