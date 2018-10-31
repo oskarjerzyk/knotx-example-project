@@ -8,5 +8,8 @@ services:
       - redis
     ports:
       - "8092:8092"
+      - "18092:18092"
   redis:
     image: redis:5
+    ports:
+    - "6379:6379"
