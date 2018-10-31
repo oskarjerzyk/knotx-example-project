@@ -1,0 +1,15 @@
+FROM knotx/knotx
+
+## Add new dependencies to the Knot.x stack, a dependencies to your custom code
+COPY knotx-stack.json ${KNOTX_HOME}/knotx-stack.json
+RUN knotx resolve && rm -rf ${HOME}/.m2
+
+COPY conf ${KNOTX_HOME}/conf
+COPY verticle ${KNOTX_HOME}/lib
+COPY sample ${KNOTX_HOME}/sample
+
+WORKDIR $KNOTX_HOME
+
+EXPOSE 8092
+ENTRYPOINT ["knotx"]
+CMD ["run-knotx"]
