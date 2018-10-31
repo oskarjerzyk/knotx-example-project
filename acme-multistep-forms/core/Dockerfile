@@ -7,10 +7,17 @@ RUN knotx resolve && rm -rf ${HOME}/.m2
 
 COPY conf ${KNOTX_HOME}/conf
 COPY verticle ${KNOTX_HOME}/lib
+COPY sample ${KNOTX_HOME}/sample
 
-EXPOSE 8092
-EXPOSE 18092
+
+# Turn on debug
+RUN sed -i 's/# JVM_DEBUG=/JVM_DEBUG=/g' ${KNOTX_HOME}/bin/knotx
+
+# Suspend Knotx start
+#RUN sed -i 's/suspend=n/suspend=y/g'  ${KNOTX_HOME}/bin/knotx
 
 WORKDIR $KNOTX_HOME
+
+EXPOSE 8092
 ENTRYPOINT ["knotx"]
-CMD ["run-knotx", "-cluster"]
+CMD ["run-knotx"]
