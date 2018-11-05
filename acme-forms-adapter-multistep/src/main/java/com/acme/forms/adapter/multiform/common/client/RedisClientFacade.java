@@ -26,8 +26,8 @@ public class RedisClientFacade {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(
       RedisClientFacade.class);
-  private RedisClient redis;
 
+  private RedisClient redis;
 
   public RedisClientFacade(Vertx vertx, RedisConfiguration configuration) {
     RedisOptions config = new RedisOptions()
@@ -40,12 +40,7 @@ public class RedisClientFacade {
   public void process() {
     LOGGER.info("RedisConfiguration process");
 
-    redis.get("mykey", res -> {
-      if (res.succeeded()) {
-        LOGGER.info(res.result());
-      } else {
-        LOGGER.info("ERROR");
-      }
-    });
+    redis.rxGet("mykey")
+      .subscribe(LOGGER::info, LOGGER::error);
   }
 }
