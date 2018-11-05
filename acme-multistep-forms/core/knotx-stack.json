@@ -34,12 +34,6 @@
       "version": "${acme.version}",
       "included": true
     },
-    {
-      "groupId": "io.knotx.acme",
-      "artifactId": "acme-forms-adapter-http",
-      "version": "${acme.version}",
-      "included": true
-    },
     //Knot.x dependencies
     {
       "groupId": "io.knotx",
