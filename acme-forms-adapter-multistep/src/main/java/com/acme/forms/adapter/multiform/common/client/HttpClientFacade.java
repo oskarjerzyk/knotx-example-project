@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.acme.forms.adapter.multiform.common.http;
+package com.acme.forms.adapter.multiform.common.client;
 
 import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterOptions;
 import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterSettings;
@@ -41,10 +41,10 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.tuple.Pair;
 
 
-public class RedisClientFacade {
+public class HttpClientFacade {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(
-      RedisClientFacade.class);
+      HttpClientFacade.class);
   private static final String PATH_PROPERTY_KEY = "path";
   private static final String QUERY_PARAMS_PROPERTY_KEY = "queryParams";
   private static final String HEADERS_PROPERTY_KEY = "headers";
@@ -55,7 +55,7 @@ public class RedisClientFacade {
 
   private final CustomHttpHeader customHttpHeader;
 
-  public RedisClientFacade(WebClient webClient, MultiStepFormsAdapterOptions configuration) {
+  public HttpClientFacade(WebClient webClient, MultiStepFormsAdapterOptions configuration) {
     this.webClient = webClient;
     this.services = configuration.getServices();
     this.customHttpHeader = configuration.getCustomHttpHeader();

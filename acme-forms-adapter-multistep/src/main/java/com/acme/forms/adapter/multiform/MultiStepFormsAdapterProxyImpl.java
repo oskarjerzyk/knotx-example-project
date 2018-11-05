@@ -16,8 +16,9 @@
 package com.acme.forms.adapter.multiform;
 
 
+import com.acme.forms.adapter.multiform.common.client.RedisClientFacade;
 import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterOptions;
-import com.acme.forms.adapter.multiform.common.http.RedisClientFacade;
+import com.acme.forms.adapter.multiform.common.client.HttpClientFacade;
 import io.knotx.dataobjects.ClientResponse;
 import io.knotx.forms.api.FormsAdapterRequest;
 import io.knotx.forms.api.FormsAdapterResponse;
@@ -31,12 +32,16 @@ import io.vertx.reactivex.ext.web.client.WebClient;
 
 public class MultiStepFormsAdapterProxyImpl extends AbstractFormsAdapterProxy {
 
-  private RedisClientFacade httpClientFacade;
+  private HttpClientFacade httpClientFacade;
+
+  private RedisClientFacade redisClientFacade;
 
   public MultiStepFormsAdapterProxyImpl(Vertx vertx, MultiStepFormsAdapterOptions configuration) {
-    this.httpClientFacade = new RedisClientFacade(
+    this.httpClientFacade = new HttpClientFacade(
         WebClient.create(vertx, configuration.getClientOptions()),
         configuration);
+
+    this.redisClientFacade = new RedisClientFacade(configuration);
   }
 
   @Override
@@ -46,6 +51,8 @@ public class MultiStepFormsAdapterProxyImpl extends AbstractFormsAdapterProxy {
 
   private FormsAdapterResponse prepareResponse(ClientResponse response) {
     FormsAdapterResponse result = new FormsAdapterResponse();
+
+    this.redisClientFacade.process();
 
     if (response.getStatusCode() == HttpResponseStatus.OK.code()) {
       if (isJsonBody(response.getBody()) && response.getBody().toJsonObject()
