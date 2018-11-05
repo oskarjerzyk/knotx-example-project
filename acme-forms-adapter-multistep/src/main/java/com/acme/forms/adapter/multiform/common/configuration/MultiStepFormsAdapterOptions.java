@@ -29,14 +29,11 @@ import java.util.List;
 @DataObject(generateConverter = true, publicConverter = false)
 public class MultiStepFormsAdapterOptions {
 
-  /**
-   * Default EB address of the adapter = knotx.adapter.service.http
-   */
   public final static String DEFAULT_ADDRESS = "knotx.forms.http";
 
   private String address;
   private WebClientOptions clientOptions;
-  private List<MultiStepFormsAdapterSettings> services;
+  private List<Service> services;
   private CustomHttpHeader customHttpHeader;
 
   /**
@@ -129,21 +126,21 @@ public class MultiStepFormsAdapterOptions {
   }
 
   /**
-   * @return a list of {@link MultiStepFormsAdapterSettings} describing all service endpoints the ServiceAdapter
+   * @return a list of {@link Service} describing all service endpoints the ServiceAdapter
    * need to communicate
    */
-  public List<MultiStepFormsAdapterSettings> getServices() {
+  public List<Service> getServices() {
     return services;
   }
 
   /**
    * Sets the configuration of each service endpoint used by the adapter.
    *
-   * @param services the {@link MultiStepFormsAdapterSettings} objects representing each service endpoint
+   * @param services the {@link Service} objects representing each service endpoint
    * @return a reference to this, so the API can be used fluently
    */
   public MultiStepFormsAdapterOptions setServices(
-      List<MultiStepFormsAdapterSettings> services) {
+      List<Service> services) {
     this.services = services;
     return this;
   }

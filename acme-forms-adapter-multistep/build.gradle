@@ -11,6 +11,7 @@ dependencies {
 
   compileOnly 'io.knotx:knotx-core'
   compileOnly 'io.vertx:vertx-core'
+  compileOnly 'io.vertx:vertx-redis-client'
   compileOnly 'io.vertx:vertx-rx-java2'
   compileOnly 'io.knotx:knotx-forms-api'
   compileOnly 'io.knotx:knotx-forms-core'

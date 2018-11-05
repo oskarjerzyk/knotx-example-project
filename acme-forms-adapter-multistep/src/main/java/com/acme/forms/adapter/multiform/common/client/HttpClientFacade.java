@@ -16,7 +16,7 @@
 package com.acme.forms.adapter.multiform.common.client;
 
 import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterOptions;
-import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterSettings;
+import com.acme.forms.adapter.multiform.common.configuration.Service;
 import com.acme.forms.adapter.multiform.common.exception.UnsupportedMultiStepFormsException;
 import io.knotx.configuration.CustomHttpHeader;
 import io.knotx.dataobjects.ClientRequest;
@@ -49,7 +49,7 @@ public class HttpClientFacade {
   private static final String QUERY_PARAMS_PROPERTY_KEY = "queryParams";
   private static final String HEADERS_PROPERTY_KEY = "headers";
 
-  private final List<MultiStepFormsAdapterSettings> services;
+  private final List<Service> services;
 
   private final WebClient webClient;
 
@@ -71,7 +71,7 @@ public class HttpClientFacade {
         .flatMap(this::wrapResponse);
   }
 
-  private void logResponse(Pair<ClientRequest, MultiStepFormsAdapterSettings> request,
+  private void logResponse(Pair<ClientRequest, Service> request,
       HttpResponse<Buffer> resp) {
     if (resp.statusCode() >= 400 && resp.statusCode() < 600) {
       LOGGER.error("{} {} -> Got response {}, headers[{}]",
@@ -82,7 +82,7 @@ public class HttpClientFacade {
     }
   }
 
-  private Object[] logResponseData(Pair<ClientRequest, MultiStepFormsAdapterSettings> request,
+  private Object[] logResponseData(Pair<ClientRequest, Service> request,
       HttpResponse<Buffer> resp) {
     Object[] data = {
         request.getLeft().getMethod(),
@@ -93,7 +93,7 @@ public class HttpClientFacade {
     return data;
   }
 
-  private String toUrl(Pair<ClientRequest, MultiStepFormsAdapterSettings> request) {
+  private String toUrl(Pair<ClientRequest, Service> request) {
     return new StringBuilder(request.getRight().getDomain()).append(":")
         .append(request.getRight().getPort())
         .append(request.getLeft().getPath()).toString();
@@ -134,17 +134,17 @@ public class HttpClientFacade {
         .setPath(params.getString(PATH_PROPERTY_KEY));
   }
 
-  private Pair<ClientRequest, MultiStepFormsAdapterSettings> prepareRequestData(
+  private Pair<ClientRequest, Service> prepareRequestData(
       FormsAdapterRequest adapterRequest) {
-    final Pair<ClientRequest, MultiStepFormsAdapterSettings> serviceData;
+    final Pair<ClientRequest, Service> serviceData;
 
     final JsonObject params = adapterRequest.getParams();
     final ClientRequest serviceRequest = buildServiceRequest(adapterRequest.getRequest(), params);
-    final Optional<MultiStepFormsAdapterSettings> serviceMetadata = findServiceMetadata(
+    final Optional<Service> serviceMetadata = findServiceMetadata(
         serviceRequest.getPath());
 
     if (serviceMetadata.isPresent()) {
-      final MultiStepFormsAdapterSettings metadata = serviceMetadata.get();
+      final Service metadata = serviceMetadata.get();
       if (params.containsKey(HEADERS_PROPERTY_KEY)) {
         metadata.setAdditionalHeaders(params.getJsonObject(HEADERS_PROPERTY_KEY));
       }
@@ -161,16 +161,16 @@ public class HttpClientFacade {
     return serviceData;
   }
 
-  private Optional<MultiStepFormsAdapterSettings> findServiceMetadata(String servicePath) {
+  private Optional<Service> findServiceMetadata(String servicePath) {
     return services.stream().filter(metadata -> servicePath.matches(metadata.getPath())).findAny();
   }
 
   private Single<HttpResponse<Buffer>> callService(
-      Pair<ClientRequest, MultiStepFormsAdapterSettings> serviceData, HttpMethod method) {
+      Pair<ClientRequest, Service> serviceData, HttpMethod method) {
     final Single<HttpResponse<Buffer>> httpResponse;
 
     final ClientRequest serviceRequest = serviceData.getLeft();
-    final MultiStepFormsAdapterSettings serviceMetadata = serviceData.getRight();
+    final Service serviceMetadata = serviceData.getRight();
 
     final HttpRequest<Buffer> request = webClient
         .request(method, serviceMetadata.getPort(), serviceMetadata.getDomain(),
@@ -189,7 +189,7 @@ public class HttpClientFacade {
     return httpResponse;
   }
 
-  private void overrideRequestHeaders(HttpRequest<Buffer> request, MultiStepFormsAdapterSettings metadata) {
+  private void overrideRequestHeaders(HttpRequest<Buffer> request, Service metadata) {
     if (metadata.getAdditionalHeaders() != null) {
       metadata.getAdditionalHeaders().forEach(entry -> {
         request.putHeader(entry.getKey(), entry.getValue().toString());
@@ -197,7 +197,7 @@ public class HttpClientFacade {
     }
   }
 
-  private void updateRequestQueryParams(HttpRequest<Buffer> request, MultiStepFormsAdapterSettings metadata) {
+  private void updateRequestQueryParams(HttpRequest<Buffer> request, Service metadata) {
     if (metadata.getQueryParams() != null) {
       metadata.getQueryParams().forEach(entry ->
           request.addQueryParam(entry.getKey(), entry.getValue().toString())
@@ -206,7 +206,7 @@ public class HttpClientFacade {
   }
 
   private void updateRequestHeaders(HttpRequest<Buffer> request, ClientRequest serviceRequest,
-      MultiStepFormsAdapterSettings serviceMetadata) {
+      Service serviceMetadata) {
 
     MultiMap filteredHeaders = getFilteredHeaders(serviceRequest.getHeaders(),
         serviceMetadata.getAllowedRequestHeadersPatterns());

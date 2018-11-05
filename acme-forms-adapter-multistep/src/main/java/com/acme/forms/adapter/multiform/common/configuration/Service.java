@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 
 @DataObject(generateConverter = true, publicConverter = false)
-public class MultiStepFormsAdapterSettings {
+public class Service {
 
   private String path;
   private String domain;
@@ -44,7 +44,7 @@ public class MultiStepFormsAdapterSettings {
   /**
    * Default constructor
    */
-  public MultiStepFormsAdapterSettings() {
+  public Service() {
     //empty constructor
   }
 
@@ -54,8 +54,8 @@ public class MultiStepFormsAdapterSettings {
    *
    * @param other the instance to copy
    */
-  public MultiStepFormsAdapterSettings(
-      MultiStepFormsAdapterSettings other) {
+  public Service(
+      Service other) {
     this.path = other.path;
     this.domain = other.domain;
     this.port = other.port;
@@ -70,9 +70,9 @@ public class MultiStepFormsAdapterSettings {
    *
    * @param json the JSON
    */
-  public MultiStepFormsAdapterSettings(JsonObject json) {
+  public Service(JsonObject json) {
     this();
-    MultiStepFormsAdapterSettingsConverter.fromJson(json, this);
+    ServiceConverter.fromJson(json, this);
     if (allowedRequestHeaders != null) {
       allowedRequestHeadersPatterns = allowedRequestHeaders.stream()
           .map(expr -> Pattern.compile(expr)).collect(Collectors.toList());
@@ -86,7 +86,7 @@ public class MultiStepFormsAdapterSettings {
    */
   public JsonObject toJson() {
     JsonObject json = new JsonObject();
-    MultiStepFormsAdapterSettingsConverter.toJson(this, json);
+    ServiceConverter.toJson(this, json);
     return json;
   }
 
@@ -94,7 +94,7 @@ public class MultiStepFormsAdapterSettings {
     return path;
   }
 
-  public MultiStepFormsAdapterSettings setPath(String path) {
+  public Service setPath(String path) {
     this.path = path;
     return this;
   }
@@ -111,7 +111,7 @@ public class MultiStepFormsAdapterSettings {
    *
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterSettings setDomain(
+  public Service setDomain(
       String domain) {
     this.domain = domain;
     return this;
@@ -130,7 +130,7 @@ public class MultiStepFormsAdapterSettings {
    * @param port - HTTP port
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterSettings setPort(int port) {
+  public Service setPort(int port) {
     this.port = port;
     return this;
   }
@@ -149,7 +149,7 @@ public class MultiStepFormsAdapterSettings {
    * @param allowedRequestHeaders set of Strings with header names
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterSettings setAllowedRequestHeaders(
+  public Service setAllowedRequestHeaders(
       Set<String> allowedRequestHeaders) {
     this.allowedRequestHeaders = allowedRequestHeaders;
     allowedRequestHeadersPatterns = allowedRequestHeaders.stream()
@@ -169,7 +169,7 @@ public class MultiStepFormsAdapterSettings {
    *
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterSettings setQueryParams(
+  public Service setQueryParams(
       JsonObject queryParams) {
     this.queryParams = queryParams;
     return this;
@@ -187,7 +187,7 @@ public class MultiStepFormsAdapterSettings {
    *
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterSettings setAdditionalHeaders(
+  public Service setAdditionalHeaders(
       JsonObject additionalHeaders) {
     this.additionalHeaders = additionalHeaders;
     return this;
@@ -199,7 +199,7 @@ public class MultiStepFormsAdapterSettings {
   }
 
   @GenIgnore
-  public MultiStepFormsAdapterSettings setAllowedRequestHeaderPatterns(
+  public Service setAllowedRequestHeaderPatterns(
       List<Pattern> allowedRequestHeaderPatterns) {
     this.allowedRequestHeadersPatterns = allowedRequestHeaderPatterns;
     return this;
