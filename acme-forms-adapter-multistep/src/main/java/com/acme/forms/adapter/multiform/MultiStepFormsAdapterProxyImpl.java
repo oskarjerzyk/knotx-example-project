@@ -41,7 +41,7 @@ public class MultiStepFormsAdapterProxyImpl extends AbstractFormsAdapterProxy {
         WebClient.create(vertx, configuration.getClientOptions()),
         configuration);
 
-    this.redisClientFacade = new RedisClientFacade(configuration);
+    this.redisClientFacade = new RedisClientFacade(vertx, configuration.getRedis());
   }
 
   @Override

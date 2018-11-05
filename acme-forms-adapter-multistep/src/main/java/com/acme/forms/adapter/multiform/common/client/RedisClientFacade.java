@@ -15,24 +15,37 @@
  */
 package com.acme.forms.adapter.multiform.common.client;
 
-import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterOptions;
-import io.knotx.forms.api.FormsAdapterRequest;
-import io.vertx.core.http.HttpMethod;
+import com.acme.forms.adapter.multiform.common.configuration.RedisConfiguration;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-
+import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.redis.RedisClient;
+import io.vertx.redis.RedisOptions;
 
 public class RedisClientFacade {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(
       RedisClientFacade.class);
+  private RedisClient redis;
 
 
-  public RedisClientFacade(MultiStepFormsAdapterOptions configuration) {
+  public RedisClientFacade(Vertx vertx, RedisConfiguration configuration) {
+    RedisOptions config = new RedisOptions()
+        .setHost(configuration.getHost())
+        .setPort(configuration.getPort());
 
+    this.redis = RedisClient.create(vertx, config);
   }
 
   public void process() {
-    LOGGER.info("Redis process");
+    LOGGER.info("RedisConfiguration process");
+
+    redis.get("mykey", res -> {
+      if (res.succeeded()) {
+        LOGGER.info(res.result());
+      } else {
+        LOGGER.info("ERROR");
+      }
+    });
   }
 }

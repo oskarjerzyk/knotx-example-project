@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 
 @DataObject(generateConverter = true, publicConverter = false)
-public class Service {
+public class ServiceConfiguration {
 
   private String path;
   private String domain;
@@ -44,7 +44,7 @@ public class Service {
   /**
    * Default constructor
    */
-  public Service() {
+  public ServiceConfiguration() {
     //empty constructor
   }
 
@@ -54,8 +54,8 @@ public class Service {
    *
    * @param other the instance to copy
    */
-  public Service(
-      Service other) {
+  public ServiceConfiguration(
+      ServiceConfiguration other) {
     this.path = other.path;
     this.domain = other.domain;
     this.port = other.port;
@@ -70,9 +70,9 @@ public class Service {
    *
    * @param json the JSON
    */
-  public Service(JsonObject json) {
+  public ServiceConfiguration(JsonObject json) {
     this();
-    ServiceConverter.fromJson(json, this);
+    ServiceConfigurationConverter.fromJson(json, this);
     if (allowedRequestHeaders != null) {
       allowedRequestHeadersPatterns = allowedRequestHeaders.stream()
           .map(expr -> Pattern.compile(expr)).collect(Collectors.toList());
@@ -86,7 +86,7 @@ public class Service {
    */
   public JsonObject toJson() {
     JsonObject json = new JsonObject();
-    ServiceConverter.toJson(this, json);
+    ServiceConfigurationConverter.toJson(this, json);
     return json;
   }
 
@@ -94,7 +94,7 @@ public class Service {
     return path;
   }
 
-  public Service setPath(String path) {
+  public ServiceConfiguration setPath(String path) {
     this.path = path;
     return this;
   }
@@ -111,7 +111,7 @@ public class Service {
    *
    * @return a reference to this, so the API can be used fluently
    */
-  public Service setDomain(
+  public ServiceConfiguration setDomain(
       String domain) {
     this.domain = domain;
     return this;
@@ -130,7 +130,7 @@ public class Service {
    * @param port - HTTP port
    * @return a reference to this, so the API can be used fluently
    */
-  public Service setPort(int port) {
+  public ServiceConfiguration setPort(int port) {
     this.port = port;
     return this;
   }
@@ -149,7 +149,7 @@ public class Service {
    * @param allowedRequestHeaders set of Strings with header names
    * @return a reference to this, so the API can be used fluently
    */
-  public Service setAllowedRequestHeaders(
+  public ServiceConfiguration setAllowedRequestHeaders(
       Set<String> allowedRequestHeaders) {
     this.allowedRequestHeaders = allowedRequestHeaders;
     allowedRequestHeadersPatterns = allowedRequestHeaders.stream()
@@ -169,7 +169,7 @@ public class Service {
    *
    * @return a reference to this, so the API can be used fluently
    */
-  public Service setQueryParams(
+  public ServiceConfiguration setQueryParams(
       JsonObject queryParams) {
     this.queryParams = queryParams;
     return this;
@@ -187,7 +187,7 @@ public class Service {
    *
    * @return a reference to this, so the API can be used fluently
    */
-  public Service setAdditionalHeaders(
+  public ServiceConfiguration setAdditionalHeaders(
       JsonObject additionalHeaders) {
     this.additionalHeaders = additionalHeaders;
     return this;
@@ -199,7 +199,7 @@ public class Service {
   }
 
   @GenIgnore
-  public Service setAllowedRequestHeaderPatterns(
+  public ServiceConfiguration setAllowedRequestHeaderPatterns(
       List<Pattern> allowedRequestHeaderPatterns) {
     this.allowedRequestHeadersPatterns = allowedRequestHeaderPatterns;
     return this;

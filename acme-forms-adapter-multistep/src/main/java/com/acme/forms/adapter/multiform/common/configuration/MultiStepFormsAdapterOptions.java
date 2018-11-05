@@ -33,7 +33,8 @@ public class MultiStepFormsAdapterOptions {
 
   private String address;
   private WebClientOptions clientOptions;
-  private List<Service> services;
+  private List<ServiceConfiguration> services;
+  private RedisConfiguration redis;
   private CustomHttpHeader customHttpHeader;
 
   /**
@@ -126,21 +127,21 @@ public class MultiStepFormsAdapterOptions {
   }
 
   /**
-   * @return a list of {@link Service} describing all service endpoints the ServiceAdapter
+   * @return a list of {@link ServiceConfiguration} describing all service endpoints the ServiceAdapter
    * need to communicate
    */
-  public List<Service> getServices() {
+  public List<ServiceConfiguration> getServices() {
     return services;
   }
 
   /**
    * Sets the configuration of each service endpoint used by the adapter.
    *
-   * @param services the {@link Service} objects representing each service endpoint
+   * @param services the {@link ServiceConfiguration} objects representing each service endpoint
    * @return a reference to this, so the API can be used fluently
    */
   public MultiStepFormsAdapterOptions setServices(
-      List<Service> services) {
+      List<ServiceConfiguration> services) {
     this.services = services;
     return this;
   }
@@ -163,5 +164,13 @@ public class MultiStepFormsAdapterOptions {
       CustomHttpHeader customHttpHeader) {
     this.customHttpHeader = customHttpHeader;
     return this;
+  }
+
+  public RedisConfiguration getRedis() {
+    return redis;
+  }
+
+  public void setRedis(RedisConfiguration redis) {
+    this.redis = redis;
   }
 }
