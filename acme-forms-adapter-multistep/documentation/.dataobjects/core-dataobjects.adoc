@@ -1,5 +1,5 @@
-[[MultiStepFormsAdapterOptions]]
-== MultiStepFormsAdapterOptions
+[[MultiStepFormsAdapterConfiguration]]
+== MultiStepFormsAdapterConfiguration
 
 ++++
  Options describing how an ServiceAdapter will make connections with external HTTP services.

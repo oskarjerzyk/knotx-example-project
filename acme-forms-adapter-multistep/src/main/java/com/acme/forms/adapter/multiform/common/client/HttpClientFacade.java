@@ -15,7 +15,7 @@
  */
 package com.acme.forms.adapter.multiform.common.client;
 
-import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterOptions;
+import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterConfiguration;
 import com.acme.forms.adapter.multiform.common.configuration.ServiceConfiguration;
 import com.acme.forms.adapter.multiform.common.exception.UnsupportedMultiStepFormsException;
 import io.knotx.configuration.CustomHttpHeader;
@@ -55,7 +55,7 @@ public class HttpClientFacade {
 
   private final CustomHttpHeader customHttpHeader;
 
-  public HttpClientFacade(WebClient webClient, MultiStepFormsAdapterOptions configuration) {
+  public HttpClientFacade(WebClient webClient, MultiStepFormsAdapterConfiguration configuration) {
     this.webClient = webClient;
     this.services = configuration.getServices();
     this.customHttpHeader = configuration.getCustomHttpHeader();

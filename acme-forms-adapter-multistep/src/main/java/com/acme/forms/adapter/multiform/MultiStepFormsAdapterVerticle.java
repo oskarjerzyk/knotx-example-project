@@ -16,7 +16,7 @@
 package com.acme.forms.adapter.multiform;
 
 
-import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterOptions;
+import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterConfiguration;
 import io.knotx.forms.api.FormsAdapterProxy;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
@@ -31,7 +31,7 @@ public class MultiStepFormsAdapterVerticle extends AbstractVerticle {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MultiStepFormsAdapterVerticle.class);
 
-  private MultiStepFormsAdapterOptions configuration;
+  private MultiStepFormsAdapterConfiguration configuration;
 
   private MessageConsumer<JsonObject> consumer;
 
@@ -40,7 +40,7 @@ public class MultiStepFormsAdapterVerticle extends AbstractVerticle {
   @Override
   public void init(Vertx vertx, Context context) {
     super.init(vertx, context);
-    this.configuration = new MultiStepFormsAdapterOptions(config());
+    this.configuration = new MultiStepFormsAdapterConfiguration(config());
   }
 
   @Override

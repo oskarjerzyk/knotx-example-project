@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 @DataObject(generateConverter = true, publicConverter = false)
-public class MultiStepFormsAdapterOptions {
+public class MultiStepFormsAdapterConfiguration {
 
   public final static String DEFAULT_ADDRESS = "knotx.forms.http";
 
@@ -40,7 +40,7 @@ public class MultiStepFormsAdapterOptions {
   /**
    * Default constructor
    */
-  public MultiStepFormsAdapterOptions() {
+  public MultiStepFormsAdapterConfiguration() {
     init();
   }
 
@@ -50,8 +50,8 @@ public class MultiStepFormsAdapterOptions {
    *
    * @param other the instance to copy
    */
-  public MultiStepFormsAdapterOptions(
-      MultiStepFormsAdapterOptions other) {
+  public MultiStepFormsAdapterConfiguration(
+      MultiStepFormsAdapterConfiguration other) {
     this.address = other.address;
     this.clientOptions = new WebClientOptions(other.clientOptions);
     this.services = new ArrayList<>(other.services);
@@ -63,9 +63,9 @@ public class MultiStepFormsAdapterOptions {
    *
    * @param json the JSON
    */
-  public MultiStepFormsAdapterOptions(JsonObject json) {
+  public MultiStepFormsAdapterConfiguration(JsonObject json) {
     init();
-    MultiStepFormsAdapterOptionsConverter.fromJson(json, this);
+    MultiStepFormsAdapterConfigurationConverter.fromJson(json, this);
   }
 
   /**
@@ -75,7 +75,7 @@ public class MultiStepFormsAdapterOptions {
    */
   public JsonObject toJson() {
     JsonObject json = new JsonObject();
-    MultiStepFormsAdapterOptionsConverter.toJson(this, json);
+    MultiStepFormsAdapterConfigurationConverter.toJson(this, json);
     return json;
   }
 
@@ -100,7 +100,7 @@ public class MultiStepFormsAdapterOptions {
    * @param address an event bus address
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterOptions setAddress(
+  public MultiStepFormsAdapterConfiguration setAddress(
       String address) {
     this.address = address;
     return this;
@@ -120,7 +120,7 @@ public class MultiStepFormsAdapterOptions {
    * @param clientOptions clientOptions
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterOptions setClientOptions(
+  public MultiStepFormsAdapterConfiguration setClientOptions(
       WebClientOptions clientOptions) {
     this.clientOptions = clientOptions;
     return this;
@@ -140,7 +140,7 @@ public class MultiStepFormsAdapterOptions {
    * @param services the {@link ServiceConfiguration} objects representing each service endpoint
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterOptions setServices(
+  public MultiStepFormsAdapterConfiguration setServices(
       List<ServiceConfiguration> services) {
     this.services = services;
     return this;
@@ -160,7 +160,7 @@ public class MultiStepFormsAdapterOptions {
    * @param customHttpHeader the header name &amp; value
    * @return a reference to this, so the API can be used fluently
    */
-  public MultiStepFormsAdapterOptions setCustomHttpHeader(
+  public MultiStepFormsAdapterConfiguration setCustomHttpHeader(
       CustomHttpHeader customHttpHeader) {
     this.customHttpHeader = customHttpHeader;
     return this;

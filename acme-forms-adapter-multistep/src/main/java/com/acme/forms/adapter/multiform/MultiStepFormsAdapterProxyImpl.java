@@ -17,7 +17,7 @@ package com.acme.forms.adapter.multiform;
 
 
 import com.acme.forms.adapter.multiform.common.client.RedisClientFacade;
-import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterOptions;
+import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterConfiguration;
 import com.acme.forms.adapter.multiform.common.client.HttpClientFacade;
 import io.knotx.dataobjects.ClientResponse;
 import io.knotx.forms.api.FormsAdapterRequest;
@@ -36,7 +36,7 @@ public class MultiStepFormsAdapterProxyImpl extends AbstractFormsAdapterProxy {
 
   private RedisClientFacade redisClientFacade;
 
-  public MultiStepFormsAdapterProxyImpl(Vertx vertx, MultiStepFormsAdapterOptions configuration) {
+  public MultiStepFormsAdapterProxyImpl(Vertx vertx, MultiStepFormsAdapterConfiguration configuration) {
     this.httpClientFacade = new HttpClientFacade(
         WebClient.create(vertx, configuration.getClientOptions()),
         configuration);
