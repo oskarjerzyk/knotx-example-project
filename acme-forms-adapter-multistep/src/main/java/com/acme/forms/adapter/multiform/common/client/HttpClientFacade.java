@@ -53,17 +53,13 @@ public class HttpClientFacade {
 
   private final WebClient webClient;
 
-  private final CustomHttpHeader customHttpHeader;
-
   public HttpClientFacade(WebClient webClient, MultiStepFormsAdapterConfiguration configuration) {
     this.webClient = webClient;
     this.services = configuration.getServices();
-    this.customHttpHeader = configuration.getCustomHttpHeader();
   }
 
   public Single<ClientResponse> process(FormsAdapterRequest message, HttpMethod method) {
     return Single.just(message)
-        .doOnSuccess(this::validateContract)
         .map(this::prepareRequestData)
         .flatMap(
             serviceRequest -> callService(serviceRequest, method)
@@ -99,36 +95,7 @@ public class HttpClientFacade {
         .append(request.getLeft().getPath()).toString();
   }
 
-  /**
-   * Method to validate contract or params JsonObject for the DataSourceAdapterProxy ServiceConfiguration<br> The
-   * contract checks if all required fields exists in the object. throwing IllegalArgumentException
-   * in case of contract violation.<br>
-   *
-   * @param message - Event Bus Json Object message that contains 'clientRequest' and 'params'
-   * objects.
-   */
-  protected void validateContract(FormsAdapterRequest message) {
-    if (message.getParams() == null || !message.getParams().containsKey(PATH_PROPERTY_KEY)) {
-      throw new IllegalArgumentException("Parameter `path` was not defined in `params`!");
-    }
-  }
 
-  /**
-   * Method responsible for building request to the service.
-   * <br>
-   * <br>
-   * The responsibility of the method is to build ClientRequest based on the original Http
-   * Request<br> - It must set path property of the request based on the params<br> - It might set
-   * headers of the request if needed.<br>
-   * <br>
-   * In case of headers created modified in this method, ensure that your service configuration
-   * allows passing those headers to the target service. See 'allowedRequestHeaders' section of the
-   * configuration <br>
-   *
-   * @param originalRequest - ClientRequest representing original request comming to the Knot.x
-   * @param params - JsonObject of the params to be used to build request.
-   * @return ClientRequest representing Http request to the target service
-   */
   protected ClientRequest buildServiceRequest(ClientRequest originalRequest, JsonObject params) {
     return new ClientRequest(originalRequest)
         .setPath(params.getString(PATH_PROPERTY_KEY));
@@ -214,12 +181,6 @@ public class HttpClientFacade {
         headerName -> filteredHeaders.getAll(headerName)
             .forEach(value -> request.headers().add(headerName, value)));
 
-    if (customHttpHeader != null) {
-      request.headers().set(
-          customHttpHeader.getName(),
-          customHttpHeader.getValue()
-      );
-    }
   }
 
   private MultiMap getFilteredHeaders(MultiMap headers, List<Pattern> allowedHeaders) {
