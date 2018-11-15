@@ -10,11 +10,8 @@
 [frame="topbot"]
 |===
 ^|Name | Type ^| Description
-|[[address]]`address`|`String`|
-+++
-Event Bus <code>address</code> the service adapter listening on. Default value is
- 'knotx.adapter.service.http'
-+++
+|[[adapterAddress]]`adapterAddress`|`String`|-
+|[[address]]`address`|`String`|-
 |[[clientOptions]]`clientOptions`|`link:cheatsheets.adoc#WebClientOptions[WebClientOptions]`|
 +++
 Sets the Vert.x Web Client options of the Web client.
@@ -29,6 +26,7 @@ Sets the header (name &amp; value) to be sent in every request to the services. 
 +++
 Sets the configuration of each service endpoint used by the adapter.
 +++
+|[[sessionAddress]]`sessionAddress`|`String`|-
 |===
 [[RedisConfiguration]]
 == RedisConfiguration

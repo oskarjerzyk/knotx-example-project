@@ -29,9 +29,8 @@ import java.util.List;
 @DataObject(generateConverter = true, publicConverter = false)
 public class MultiStepFormsAdapterConfiguration {
 
-  public final static String DEFAULT_ADDRESS = "knotx.forms.http";
-
-  private String address;
+  private String adapterAddress;
+  private String sessionAddress;
   private WebClientOptions clientOptions;
   private List<ServiceConfiguration> services;
   private RedisConfiguration redis;
@@ -52,7 +51,8 @@ public class MultiStepFormsAdapterConfiguration {
    */
   public MultiStepFormsAdapterConfiguration(
       MultiStepFormsAdapterConfiguration other) {
-    this.address = other.address;
+    this.adapterAddress = other.adapterAddress;
+    this.sessionAddress = other.sessionAddress;
     this.clientOptions = new WebClientOptions(other.clientOptions);
     this.services = new ArrayList<>(other.services);
     this.customHttpHeader = new CustomHttpHeader(other.customHttpHeader);
@@ -80,29 +80,30 @@ public class MultiStepFormsAdapterConfiguration {
   }
 
   private void init() {
-    address = DEFAULT_ADDRESS;
+    adapterAddress = "knotx.forms.adapter.multistep";
+    sessionAddress = "knotx.forms.session";
     clientOptions = new WebClientOptions();
     services = new ArrayList<>();
     customHttpHeader = null;
   }
 
-  /**
-   * @return event bus address the service adapter is registered on
-   */
-  public String getAddress() {
-    return address;
+  public String getAdapterAddress() {
+    return adapterAddress;
   }
 
-  /**
-   * Event Bus {@code address} the service adapter listening on. Default value is
-   * 'knotx.adapter.service.http'
-   *
-   * @param address an event bus address
-   * @return a reference to this, so the API can be used fluently
-   */
   public MultiStepFormsAdapterConfiguration setAddress(
-      String address) {
-    this.address = address;
+      String adapterAddress) {
+    this.adapterAddress = adapterAddress;
+    return this;
+  }
+
+  public String getSessionAddress() {
+    return sessionAddress;
+  }
+
+  public MultiStepFormsAdapterConfiguration setSessionAddress(
+      String sessionAddress) {
+    this.sessionAddress = sessionAddress;
     return this;
   }
 

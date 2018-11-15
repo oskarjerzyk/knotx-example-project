@@ -18,6 +18,7 @@ package com.acme.forms.adapter.multiform;
 
 import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterConfiguration;
 import io.knotx.forms.api.FormsAdapterProxy;
+import io.knotx.proxy.KnotProxy;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.MessageConsumer;
@@ -35,7 +36,9 @@ public class MultiStepFormsAdapterVerticle extends AbstractVerticle {
 
   private MessageConsumer<JsonObject> consumer;
 
-  private ServiceBinder serviceBinder;
+  private ServiceBinder adapterServiceBinder;
+
+  private ServiceBinder sessionServiceBinder;
 
   @Override
   public void init(Vertx vertx, Context context) {
@@ -48,15 +51,21 @@ public class MultiStepFormsAdapterVerticle extends AbstractVerticle {
     LOGGER.info("Starting <{}>", this.getClass().getSimpleName());
 
     //register the service proxy on event bus
-    serviceBinder = new ServiceBinder(getVertx());
-    consumer = serviceBinder
-        .setAddress(configuration.getAddress())
-        .register(FormsAdapterProxy.class, new MultiStepFormsAdapterProxyImpl(vertx, configuration));
+    adapterServiceBinder = new ServiceBinder(getVertx());
+    consumer = adapterServiceBinder
+        .setAddress(configuration.getAdapterAddress())
+        .register(FormsAdapterProxy.class, new MultiStepFormsAdapterProxy(vertx, configuration));
+
+
+    sessionServiceBinder = new ServiceBinder(getVertx());
+    consumer = sessionServiceBinder
+        .setAddress(configuration.getSessionAddress())
+        .register(KnotProxy.class, new MultiStepFormsAdapterSessionProxy(vertx, configuration));
   }
 
   @Override
   public void stop() throws Exception {
-    serviceBinder.unregister(consumer);
+    adapterServiceBinder.unregister(consumer);
   }
 
 }

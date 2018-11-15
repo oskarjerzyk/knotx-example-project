@@ -30,13 +30,13 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.client.WebClient;
 
-public class MultiStepFormsAdapterProxyImpl extends AbstractFormsAdapterProxy {
+public class MultiStepFormsAdapterProxy extends AbstractFormsAdapterProxy {
 
   private HttpClientFacade httpClientFacade;
 
   private RedisClientFacade redisClientFacade;
 
-  public MultiStepFormsAdapterProxyImpl(Vertx vertx, MultiStepFormsAdapterConfiguration configuration) {
+  public MultiStepFormsAdapterProxy(Vertx vertx, MultiStepFormsAdapterConfiguration configuration) {
     this.httpClientFacade = new HttpClientFacade(
         WebClient.create(vertx, configuration.getClientOptions()),
         configuration);
@@ -62,6 +62,11 @@ public class MultiStepFormsAdapterProxyImpl extends AbstractFormsAdapterProxy {
         result.setSignal("success");
       }
     }
+
+    response.setHeaders(
+        response.getHeaders().add("Set-Cookie", "IDD=DDD")
+    );
+
     result.setResponse(response);
 
     return result;
