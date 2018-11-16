@@ -60,7 +60,7 @@ public class MultiStepFormsAdapterVerticle extends AbstractVerticle {
     sessionServiceBinder = new ServiceBinder(getVertx());
     consumer = sessionServiceBinder
         .setAddress(configuration.getSessionAddress())
-        .register(KnotProxy.class, new MultiStepFormsAdapterSessionProxy(vertx, configuration));
+        .register(KnotProxy.class, new MultiStepFormsSessionProxy(vertx, configuration));
   }
 
   @Override

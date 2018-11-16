@@ -91,7 +91,7 @@ public class MultiStepFormsAdapterConfiguration {
     return adapterAddress;
   }
 
-  public MultiStepFormsAdapterConfiguration setAddress(
+  public MultiStepFormsAdapterConfiguration setAdapterAddress(
       String adapterAddress) {
     this.adapterAddress = adapterAddress;
     return this;

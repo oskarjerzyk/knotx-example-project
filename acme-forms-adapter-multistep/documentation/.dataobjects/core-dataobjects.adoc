@@ -11,7 +11,6 @@
 |===
 ^|Name | Type ^| Description
 |[[adapterAddress]]`adapterAddress`|`String`|-
-|[[address]]`address`|`String`|-
 |[[clientOptions]]`clientOptions`|`link:cheatsheets.adoc#WebClientOptions[WebClientOptions]`|
 +++
 Sets the Vert.x Web Client options of the Web client.

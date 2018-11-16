@@ -17,34 +17,43 @@ package com.acme.forms.adapter.multiform;
 
 
 import com.acme.forms.adapter.multiform.common.configuration.MultiStepFormsAdapterConfiguration;
+import io.knotx.dataobjects.ClientResponse;
 import io.knotx.dataobjects.KnotContext;
 import io.knotx.knot.AbstractKnotProxy;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.reactivex.Single;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.reactivex.core.MultiMap;
 import io.vertx.reactivex.core.Vertx;
 import java.util.Set;
 
 
-public class MultiStepFormsAdapterSessionProxy extends AbstractKnotProxy {
+public class MultiStepFormsSessionProxy extends AbstractKnotProxy {
 
   private static final Logger LOGGER = LoggerFactory
-      .getLogger(MultiStepFormsAdapterSessionProxy.class);
+      .getLogger(MultiStepFormsSessionProxy.class);
 
   private final Vertx vertx;
 
   private MultiStepFormsAdapterConfiguration configuration;
 
-  MultiStepFormsAdapterSessionProxy(Vertx vertx, MultiStepFormsAdapterConfiguration configuration) {
+  MultiStepFormsSessionProxy(Vertx vertx, MultiStepFormsAdapterConfiguration configuration) {
     this.vertx = vertx;
     this.configuration = configuration;
   }
 
   @Override
-  public Single<KnotContext> processRequest(final KnotContext knotContext) {
-    return Single.just(knotContext);
+  public Single<KnotContext> processRequest(KnotContext knotContext) {
+    String cookie = knotContext.getClientRequest().getHeaders().get("Cookie");
 
+    MultiMap headers = knotContext.getClientResponse().getHeaders();
+
+    headers.add("Set-Cookie", "multiform_session=157658");
+    ClientResponse clientResponse =  knotContext.getClientResponse()
+        .setHeaders(headers);
+    return Single.just(knotContext.setClientResponse(clientResponse));
   }
 
   @Override
