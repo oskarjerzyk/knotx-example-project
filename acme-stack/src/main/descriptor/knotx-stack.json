@@ -2,7 +2,7 @@
 // vert.x stack descriptor
 //
 // To add a dependency:
-// - if the dependency is already listed, just set `included` to `true`
+// - if the dependency is already listed, just set `included` to `false`
 // - if not, add the dependency using the Maven coordinates, and set `included` to `true`
 //
 // You can also set `exclusions` and whether or not the dependency need to resolve its transitive dependencies.
@@ -14,10 +14,10 @@
 //
 {
   "variables": {
-    "vertx.version": "3.5.4",
-    "tcnative.version": "2.0.7.Final",
-    "knotx.version": "1.5.0-SNAPSHOT",
-    "acme.version": "1.5.0-SNAPSHOT"
+    "vertx.version": "3.6.3",
+    "tcnative.version": "2.0.17.Final",
+    "knotx.version": "1.5.1-SNAPSHOT",
+    "acme.version": "1.5.1-SNAPSHOT"
   },
   "dependencies": [
     //Project dependencies
@@ -25,8 +25,7 @@
       "groupId": "io.knotx.acme",
       "artifactId": "acme-sample-service",
       "version": "${acme.version}",
-      "included": true,
-      "transitive": false
+      "included": true
     },
     {
       "groupId": "io.knotx.acme",
@@ -52,129 +51,139 @@
       "version": "${acme.version}",
       "included": true
     },
-    //Knot.x dependencies
+    // Knot.x dependencies
     {
       "groupId": "io.knotx",
       "artifactId": "knotx-core",
-      "version": "${knotx.version}",
+      "version": "\${knotx.version}",
       "included": true
     },
     {
       "groupId": "io.knotx",
       "artifactId": "knotx-knot-action",
-      "version": "${knotx.version}",
-      "included": true
-    },
-    // Knot.x Ext dependencies
-    {
-      "groupId": "io.knotx",
-      "artifactId": "knotx-databridge-api",
-      "version": "${knotx.version}",
+      "version": "\${knotx.version}",
       "included": true
     },
     {
       "groupId": "io.knotx",
-      "artifactId": "knotx-databridge-core",
-      "version": "${knotx.version}",
+      "artifactId": "knotx-adapter-common",
+      "version": "\${knotx.version}",
       "included": true
     },
-    {
-      "groupId": "io.knotx",
-      "artifactId": "knotx-databridge-adapter-http",
-      "version": "${knotx.version}",
-      "included": true
-    },
-    {
-      "groupId": "io.knotx",
-      "artifactId": "knotx-forms-core",
-      "version": "${knotx.version}",
-      "included": true
-    },
-    {
-      "groupId": "io.knotx",
-      "artifactId": "knotx-forms-api",
-      "version": "${knotx.version}",
-      "included": true
-    },
+    // Knot.x Template Engine
     {
       "groupId": "io.knotx",
       "artifactId": "knotx-template-engine-api",
-      "version": "${knotx.version}",
+      "version": "\${knotx.version}",
       "included": true
     },
     {
       "groupId": "io.knotx",
       "artifactId": "knotx-template-engine-core",
-      "version": "${knotx.version}",
+      "version": "\${knotx.version}",
       "included": true
     },
     {
       "groupId": "io.knotx",
       "artifactId": "knotx-template-engine-handlebars",
-      "version": "${knotx.version}",
+      "version": "\${knotx.version}",
+      "included": true
+    },
+    // Knot.x Data Bridge
+    {
+      "groupId": "io.knotx",
+      "artifactId": "knotx-databridge-api",
+      "version": "\${knotx.version}",
+      "included": true,
+      "transitive": false
+    },
+    {
+      "groupId": "io.knotx",
+      "artifactId": "knotx-databridge-core",
+      "version": "\${knotx.version}",
+      "included": true,
+      "transitive": false
+    },
+    {
+      "groupId": "io.knotx",
+      "artifactId": "knotx-databridge-adapter-http",
+      "version": "\${knotx.version}",
+      "included": true,
+      "transitive": false
+    },
+    // Knot.x Forms
+    {
+      "groupId": "io.knotx",
+      "artifactId": "knotx-forms-api",
+      "version": "\${knotx.version}",
+      "included": true
+    },
+    {
+      "groupId": "io.knotx",
+      "artifactId": "knotx-forms-core",
+      "version": "\${knotx.version}",
       "included": true
     },
     // Vert.x dependencies
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-core",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.netty",
       "artifactId": "netty-tcnative-boringssl-static",
-      "version": "${tcnative.version}",
+      "version": "\${tcnative.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-hazelcast",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-service-proxy",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-dropwizard-metrics",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-rx-java2",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-service-factory",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-web",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-web-client",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     },
     {
       "groupId": "io.vertx",
       "artifactId": "vertx-config",
-      "version": "${vertx.version}",
+      "version": "\${vertx.version}",
       "included": true
     }
   ]
 }
-
