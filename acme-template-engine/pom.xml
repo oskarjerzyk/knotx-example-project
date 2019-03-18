@@ -33,6 +33,10 @@
     <!-- Knot.x -->
     <dependency>
       <groupId>io.knotx</groupId>
+      <artifactId>knotx-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.knotx</groupId>
       <artifactId>knotx-template-engine-api</artifactId>
       <scope>provided</scope>
     </dependency>
