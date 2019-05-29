@@ -23,7 +23,7 @@ services:
       - knotnet
 
   knotx:
-    image: knotx/knotx:2.0.0-SNAPSHOT
+    image: skejven/knotx-2-workshop:1
     command: ["knotx", "run-knotx"]
     volumes:
 #      - "./knotx/bin:/usr/local/knotx/bin"
