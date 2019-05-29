@@ -1,0 +1,36 @@
+version: '3.7'
+
+networks:
+  knotnet:
+
+services:
+  repository:
+    image: httpd:2.4
+    volumes:
+      - "./example-data/content/public_html:/usr/local/apache2/htdocs"
+    ports:
+      - "4503:80"
+    networks:
+      - knotnet
+
+  webapi:
+    image: httpd:2.4
+    volumes:
+      - "./example-data/webapi/public_html:/usr/local/apache2/htdocs"
+    ports:
+      - "3000:80"
+    networks:
+      - knotnet
+
+  knotx:
+    image: knotx/knotx:2.0.0-SNAPSHOT
+    command: ["knotx", "run-knotx"]
+    volumes:
+#      - "./knotx/bin:/usr/local/knotx/bin"
+      - "./knotx/conf:/usr/local/knotx/conf"
+#      - "./knotx/lib:/usr/local/knotx/lib"
+    ports:
+      - "8092:8092"
+#      - "18092:18092"
+    networks:
+      - knotnet
